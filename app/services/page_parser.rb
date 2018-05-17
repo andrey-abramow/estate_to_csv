@@ -3,20 +3,28 @@ require 'nokogiri'
 
 class PageParser
 
+  attr_reader :url
+
+  def initialize(url: nil)
+    @url = url
+  end
+
   def call
-    # should retur page data
-    raise 'Override'
   end
 
   private
 
-  def page
-    @page ||= parse_page
+  def domain
+    uri = URI.parse(url)
+    uri.scheme + "://" + uri.host
   end
 
-  def parse_page
-    http = Curl.get(self.class::URL)
-    Nokogiri::HTML(http.body_str)
+  def page
+    @page ||= Nokogiri::HTML(body_str)
+  end
+
+  def body_str
+    @body_str ||= Curl.get(url, Rack::Utils.parse_query(URI(url).query)).body_str
   end
 
 end

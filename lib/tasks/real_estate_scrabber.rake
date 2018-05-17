@@ -1,5 +1,6 @@
 desc 'Estate scrabber'
 
 task scrab_estates: :environment do
-  Coldwellbankerhomes::Scrabber.new(file_path: 'real_estate').call
+  Coldwellbankerhomes::Scrabber.file_name = 'real_estate.csv'
+  Coldwellbankerhomes::Scrabber.new.call
 end
