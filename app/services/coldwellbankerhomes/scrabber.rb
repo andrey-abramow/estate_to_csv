@@ -4,7 +4,7 @@ class Coldwellbankerhomes::Scrabber
 
   DOMAIN = 'https://www.coldwellbankerhomes.com'
 
-  COLUMNS = ['Street_address', 'state', 'county', 'zip code', 'price', 'bedrooms', 'year built', 'photos', 'url to home'].freeze
+  COLUMNS = ['Street address', 'state', 'county', 'zip code', 'price', 'bedrooms', 'year built', 'photos', 'url to home'].freeze
 
   class << self
     attr_accessor :file_name
