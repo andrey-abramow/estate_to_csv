@@ -1,18 +1,32 @@
 require 'csv'
+require 'curb'
+require 'nokogiri'
 
 class RealEstateScrabberWorker
+
   include Sidekiq::Worker
 
-  def perform(*args)
-    ::CSV.open("file.csv", "wb") do |csv|
-      csv << ["Street_address", "state", "county", "zip code", 'price', 'bedrooms', 'year built', 'photos', 'url tohome']
-    end
+  SITE_URL = 'https://www.coldwellbankerhomes.com/sitemap/real-estate/'
 
-    RealEstateScrabStateWorker.perform_async('state_url');
-    RealEstateScrabStateWorker.perform_async('state_url')
-    RealEstateScrabStateWorker.perform_async('state_url')
-    RealEstateScrabStateWorker.perform_async('state_url')
-    RealEstateScrabStateWorker.perform_async('state_url')
+
+  def perform(*args)
+
+    http = Curl.get(SITE_URL)
+
+    doc = Nokogiri::HTML(http.body_str)
+
+    doc.css('section.content tr a', 'a').each do |link|
+      puts link['href']
+    end
+    # ::CSV.open("file.csv", "wb") do |csv|
+    #   csv << ["Street_address", "state", "county", "zip code", 'price', 'bedrooms', 'year built', 'photos', 'url to home']
+    # end
+
+    # RealEstateScrabStateWorker.perform_async('state_url');
+    # RealEstateScrabStateWorker.perform_async('state_url')
+    # RealEstateScrabStateWorker.perform_async('state_url')
+    # RealEstateScrabStateWorker.perform_async('state_url')
+    # RealEstateScrabStateWorker.perform_async('state_url')
   end
 
 end

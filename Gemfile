@@ -8,7 +8,10 @@ gem 'rails', '~> 5.2.0'
 gem 'sqlite3'
 gem 'puma', '~> 3.11'
 
-#background jobs
+# For site scrapper
+gem 'curb'
+gem 'nokogiri'
+# background jobs
 gem 'sidekiq'
 gem 'pry-remote'
 

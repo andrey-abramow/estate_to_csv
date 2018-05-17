@@ -1,6 +1,8 @@
 require 'csv'
+require 'curb'
 
 class RealEstateScrabStateWorker
+
   include Sidekiq::Worker
 
   def perform(state_url)
