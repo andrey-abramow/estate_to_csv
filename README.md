@@ -6,4 +6,4 @@
 
 * bundle exec sidekiq --concurrency=10
 
-* rake scrab_estates
+* rake coldwellbankerhomes_homes_to_csv[file.csv]
